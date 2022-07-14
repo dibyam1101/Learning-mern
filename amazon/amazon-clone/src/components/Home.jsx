@@ -1,8 +1,9 @@
 import React from 'react';
 import "./Home.css"
 import Product from './Product';
+import { connect } from 'react-redux'
 
-const Home = () => {
+const Home = ({ products }) => {
   return (
     <div className='home'>
       <div className='home__container'>
@@ -12,23 +13,21 @@ const Home = () => {
           alt="home_background_image" />
 
         <div className="home__row">
-          <Product title="Ikigai : Japanese Art of staying Young.. While growing Old" 
-          image="https://m.media-amazon.com/images/I/81l3rZK4lnL._AC_UY327_FMwebp_QL65_.jpg" 
-          rating={4} 
-          price = "12.2" />
-          <Product />
+
 
         </div>
 
         <div className="home__row">
-          <Product />
-          <Product />
-          <Product />
+          {
+            products.map(prod =>
+              <Product key = {prod.id} productData={prod} />
+            )
+          }
 
         </div>
 
         <div className="home__row">
-          <Product />
+          {/* <Product /> */}
 
         </div>
 
@@ -37,4 +36,10 @@ const Home = () => {
   );
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    products: state.shopReducer.products,
+  }
+};
+
+export default connect(mapStateToProps)(Home);

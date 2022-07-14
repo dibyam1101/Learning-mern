@@ -1,19 +1,22 @@
 import React from "react";
 import "./Product.css";
+import { connect } from 'react-redux'
+import {addToCart} from '../redux/Shopping/shopping-actions'
 
-const Product = ({id, title, image, price, rating}) => {
+const Product = ({ productData , addToCart}) => {
+  console.log(productData);
   return (
     <div className="product">
       <div className="product__info">
-        <p>{title}</p>
+        <p>{productData.title}</p>
 
         <div className={"product__price"}>
           <small>$</small>
-          <strong>{price}</strong>
+          <strong>{productData.price}</strong>
         </div>
 
         <div className="product__rating">
-          {Array(rating).fill().map((_, i) => 
+          {Array(productData.rating).fill().map((_, i) =>
             <p>⭐</p>
           )}
         </div>
@@ -21,12 +24,19 @@ const Product = ({id, title, image, price, rating}) => {
 
       <img
         className="product__image"
-        src={image}
+        src={productData.image}
         alt="product"
       />
-      <button>Add to Basket</button>
+      <button onClick={() => {addToCart(productData.id)}}>Add to Basket</button>
     </div>
   );
 };
 
-export default Product;
+const mapDispatchToProps = dispatch => {
+  return {
+    addToCart: (id) => dispatch(addToCart(id))
+
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Product);

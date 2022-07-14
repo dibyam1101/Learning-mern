@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Header.css"
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import { Link } from 'react-router-dom'
-const Header = () => {
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
+const Header = ({cart}) => {
+
+  const [cartCount, setCartCount] = useState(0);
+  useEffect(() => {
+    let count = 0;
+    cart.forEach(item => {
+      count += item.qty;
+    });
+
+    setCartCount(count);
+  }, [cart, cartCount])
+
   return (
     <div className="header">
       <Link to="/">
@@ -38,7 +52,7 @@ const Header = () => {
 
         <Link to="checkout" ><div className="header__optionBasket">
           <ShoppingBasketIcon fontSize="large" />
-          <span className="option__lineTwo header__basketCount">0</span>
+          <span className="option__lineTwo header__basketCount">{cartCount}</span>
         </div></Link>
 
       </div>
@@ -46,4 +60,10 @@ const Header = () => {
   );
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    cart: state.shopReducer.cart
+  }
+}
+
+export default connect(mapStateToProps)(Header);
