@@ -1,0 +1,15 @@
+.card-container{
+  background-color: rgba(226, 226, 226, 0.4);
+  width: 300px;
+  margin: 30px;
+  transition: all 0.1s;
+  flex-basis: 25%;
+  padding: 10px;
+  }
+  
+  
+  
+  .card-container:hover{
+    transform: scale(1.1);
+  }
+  
