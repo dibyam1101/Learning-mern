@@ -1,23 +1,20 @@
-import React, { Component } from 'react';
-import './search-box.sryles.css'
-class SearchBox extends Component {
-  render() {
+import React, { Component } from "react";
+import "./search-box.sryles.css";
 
-    const { onChange, placeholder, className } = this.props;
+const SearchBox = (props) => {
+  const { onChange, placeholder, className, value } = props;
 
-    console.log('placeholder is: ', placeholder);
+  // console.log('placeholder is: ', placeholder);
 
-    return (
-      <input
-        className={`search-box ${className}`}
-        type="search"
-        placeholder={placeholder}
-        // value={searchQuery}
-        onChange={onChange}
-
-      />
-    );
-  }
-}
+  return (
+    <input
+      className={`search-box ${className}`}
+      type="search"
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  );
+};
 
 export default SearchBox;
